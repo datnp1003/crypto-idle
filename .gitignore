@@ -13,3 +13,6 @@ coverage/
 
 # Hermes local planning notes
 .hermes/
+
+# Database files
+server/data/

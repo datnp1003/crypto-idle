@@ -45,6 +45,12 @@ ES modules require HTTP; direct `file://` opening will fail.
 - `js/data/number-format.js` — idle money suffix formatting.
 - `js/ui/crypto-screen.js` — DOM UI renderer.
 
+## Database Seed
+
+```bash
+node server/seed-data.js
+```
+
 ## Checks
 
 ```bash
