@@ -4,12 +4,22 @@ A mobile-friendly browser crypto idle game: click to mine, hire staff for passiv
 
 ## Run
 
+Static mode:
+
 ```bash
 cd /home/datnguyen/game
 python3 -m http.server 8000
 ```
 
 Open http://localhost:8000.
+
+Dynamic mode (Node server with API):
+
+```bash
+node server/server.js
+```
+
+Open http://localhost:3000. Serves the same game plus `/api/health`.
 
 ES modules require HTTP; direct `file://` opening will fail.
 
