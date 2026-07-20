@@ -10,9 +10,11 @@ node_modules/
 dist/
 build/
 coverage/
+backend/node_modules/
+backend/dist/
 
 # Hermes local planning notes
 .hermes/
 
 # Database files
-server/data/
+backend/data/

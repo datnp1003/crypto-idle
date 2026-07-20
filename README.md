@@ -13,13 +13,17 @@ python3 -m http.server 8000
 
 Open http://localhost:8000.
 
-Dynamic mode (Node server with API):
+Backend (NestJS):
 
 ```bash
-node server/server.js
+cd backend
+npm install
+npm run build
+npm run start          # production
+npm run start:dev      # development with ts-node
 ```
 
-Open http://localhost:3000. Serves the same game plus `/api/health`.
+Open http://localhost:3000. API endpoints are at `/api/*`, e.g. `GET /api/health`.
 
 ES modules require HTTP; direct `file://` opening will fail.
 
@@ -44,12 +48,6 @@ ES modules require HTTP; direct `file://` opening will fail.
 - `js/data/crypto-staff.js` — staff and upgrade data.
 - `js/data/number-format.js` — idle money suffix formatting.
 - `js/ui/crypto-screen.js` — DOM UI renderer.
-
-## Database Seed
-
-```bash
-node server/seed-data.js
-```
 
 ## Checks
 
