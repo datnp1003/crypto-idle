@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Idle</title>
+  <meta name="description" content="Crypto Idle — click to trade, hire staff, buy upgrades, and prestige for whale points.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="game-container">
+
+    <!-- ══ HEADER ══════════════════════════════════════════════════ -->
+    <header id="game-header">
+      <h1 id="site-title">
+        <span class="btc-accent">₿</span> Crypto Idle
+      </h1>
+      <div id="header-stats">
+        <div class="stat-pill">
+          <span class="stat-label">Cash</span>
+          <span id="cash" class="stat-value green">$0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Profit/s</span>
+          <span id="profit-rate" class="stat-value green">$0.0/s</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══ MAIN SCREEN ══════════════════════════════════════════════ -->
+    <main id="crypto-screen">
+
+      <!-- Metric cards row -->
+      <section class="metrics-row" aria-label="Game metrics">
+        <div class="metric-card" id="metric-click">
+          <div class="metric-icon">🖱️</div>
+          <div class="metric-label">Click Value</div>
+          <div class="metric-value" id="click-value">$1</div>
+        </div>
+        <div class="metric-card" id="metric-prestige">
+          <div class="metric-icon">🐋</div>
+          <div class="metric-label">Prestige ×</div>
+          <div class="metric-value" id="prestige-multiplier">×1.00</div>
+        </div>
+        <div class="metric-card" id="metric-pump">
+          <div class="metric-icon">📈</div>
+          <div class="metric-label">Pump Event</div>
+          <div class="metric-value" id="pump-status">Inactive</div>
+        </div>
+      </section>
+
+      <!-- Offline claim button (hidden by default) -->
+      <button id="claim-offline" class="claim-btn" style="display:none;" aria-label="Claim offline earnings">
+        💤 Claim Offline Earnings
+      </button>
+
+      <!-- Big trade / click button -->
+      <section class="click-section" aria-label="Click to earn">
+        <button id="trade-click" class="trade-btn" aria-label="Trade — click to earn cash">
+          <span class="trade-btn-icon">⚡</span>
+          <span class="trade-btn-text">Mine Block</span>
+          <span class="trade-btn-sub" id="click-value-hint">+$1 per click</span>
+        </button>
+      </section>
+
+      <!-- ══ TAB NAV ════════════════════════════════════════════════ -->
+      <nav class="tab-nav" role="tablist" aria-label="Game sections">
+        <button
+          id="tab-staff"
+          class="tab-btn active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-staff"
+        >👥 Staff</button>
+        <button
+          id="tab-upgrades"
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-upgrades"
+        >⚙️ Upgrades</button>
+      </nav>
+
+      <!-- ══ STAFF PANEL ════════════════════════════════════════════ -->
+      <section
+        id="panel-staff"
+        class="tab-panel"
+        role="tabpanel"
+        aria-labelledby="tab-staff"
+      >
+        <!-- Staff section header row: label left, mode control right -->
+        <div class="section-heading-row" id="staff-heading">
+          <span class="section-heading-label">👥 Staff</span>
+          <!-- staff-mode-group injected here by crypto-screen.js -->
+        </div>
+        <div id="staff-list" class="card-grid" role="list">
+          <!-- Rendered by crypto-screen.js -->
+        </div>
+      </section>
+
+      <!-- ══ UPGRADES PANEL ══════════════════════════════════════════ -->
+      <section
+        id="panel-upgrades"
+        class="tab-panel hidden"
+        role="tabpanel"
+        aria-labelledby="tab-upgrades"
+      >
+        <!-- Upgrades section header row: label left, mode control right -->
+        <div class="section-heading-row" id="upgrade-heading">
+          <span class="section-heading-label">⚙️ Upgrades</span>
+          <!-- upgrade-mode-group injected here by crypto-screen.js -->
+        </div>
+        <div id="upgrade-list" class="card-grid" role="list">
+          <!-- Rendered by crypto-screen.js -->
+        </div>
+      </section>
+
+      <!-- Prestige button -->
+      <section class="panel-section prestige-section" aria-labelledby="prestige-heading">
+        <h2 id="prestige-heading" class="section-heading-label">
+          🌊 Prestige
+        </h2>
+        <p class="prestige-info">Reset all progress for permanent Whale Point bonuses. Requires $1 000 000 lifetime cash.</p>
+        <button id="prestige-reset" class="prestige-btn" disabled aria-label="Prestige — reset for whale points">
+          Reset for +0 Whale Points
+        </button>
+      </section>
+
+    </main><!-- /#crypto-screen -->
+    <!-- airdrop visual overlay — items spawned dynamically by crypto-screen.js -->
+    <div id="airdrop-layer" aria-hidden="true"></div>
+  </div><!-- /#game-container -->
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Local/editor noise
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+
+# Dependencies/build output
+node_modules/
+dist/
+build/
+coverage/
+
+# Hermes local planning notes
+.hermes/
