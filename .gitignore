@@ -12,6 +12,8 @@ build/
 coverage/
 backend/node_modules/
 backend/dist/
+admin/node_modules/
+admin/dist/
 
 # Hermes local planning notes
 .hermes/

@@ -1,0 +1,43 @@
+:root {
+  --admin-bg: #0b0f14;
+  --admin-surface: #131920;
+  --admin-surface-2: #1a2230;
+  --admin-border: #1e2d40;
+  --admin-border-hi: #26394f;
+
+  --admin-green: #22c55e;
+  --admin-green-dim: #16a34a;
+  --admin-green-glow: rgba(34, 197, 94, 0.25);
+
+  --admin-gold: #f59e0b;
+  --admin-gold-dim: #d97706;
+
+  --admin-red: #ef4444;
+  --admin-red-dim: #dc2626;
+
+  --admin-purple: #8b5cf6;
+  --admin-purple-dim: #7c3aed;
+
+  --admin-blue: #3b82f6;
+  --admin-blue-dim: #2563eb;
+
+  --admin-text: #e2e8f0;
+  --admin-text-muted: #64748b;
+  --admin-text-dim: #94a3b8;
+
+  --admin-font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --admin-sp-xs: 4px;
+  --admin-sp-sm: 8px;
+  --admin-sp-md: 12px;
+  --admin-sp-lg: 16px;
+  --admin-sp-xl: 24px;
+  --admin-sp-2xl: 32px;
+
+  --admin-r-sm: 6px;
+  --admin-r-md: 10px;
+  --admin-r-lg: 14px;
+
+  --admin-t-fast: 120ms ease;
+  --admin-t-base: 200ms ease;
+}
