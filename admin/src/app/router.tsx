@@ -7,6 +7,7 @@ import { StaffListPage } from '../features/staff/StaffListPage';
 import { UpgradeListPage } from '../features/upgrades/UpgradeListPage';
 import { SettingsPage } from '../features/settings/SettingsPage';
 import { PlayersPage } from '../features/players/PlayersPage';
+import { AdminsPage } from '../features/admins/AdminsPage';
 import { AuditLogPage } from '../features/audit/AuditLogPage';
 
 export const router = createBrowserRouter([
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
           { path: 'upgrades', element: <UpgradeListPage /> },
           { path: 'settings', element: <SettingsPage /> },
           { path: 'players', element: <PlayersPage /> },
+          { path: 'admins', element: <AdminsPage /> },
           { path: 'audit', element: <AuditLogPage /> },
         ],
       },

@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { to: '/upgrades', label: 'Upgrades' },
   { to: '/settings', label: 'Settings' },
   { to: '/players', label: 'Players' },
+  { to: '/admins', label: 'Admins' },
   { to: '/audit', label: 'Audit' },
 ];
 

@@ -630,6 +630,150 @@ body {
   background: #000;
 }
 
+.admin-btn--ghost {
+  background: var(--admin-surface-2);
+  color: var(--admin-text);
+  border: 1px solid var(--admin-border-hi);
+}
+
+.admin-btn--ghost:hover:not(:disabled) {
+  border-color: var(--admin-green);
+  color: var(--admin-green);
+}
+
+.admin-btn--danger {
+  background: var(--admin-red);
+  color: #000;
+}
+
+.admin-btn--danger:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Tables */
+.admin-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-r-md);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: var(--admin-sp-sm) var(--admin-sp-md);
+  text-align: left;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+}
+
+.admin-table th {
+  background: var(--admin-surface-2);
+  color: var(--admin-text-dim);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table__dim {
+  color: var(--admin-text-muted);
+  white-space: nowrap;
+}
+
+.admin-table__actions {
+  display: flex;
+  gap: var(--admin-sp-sm);
+  white-space: nowrap;
+}
+
+.admin-table__you {
+  color: var(--admin-text-muted);
+  font-size: 0.75rem;
+}
+
+/* Pills / badges */
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-pill--green {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--admin-green);
+}
+
+.admin-pill--red {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--admin-red);
+}
+
+.admin-pill--muted {
+  background: var(--admin-surface-2);
+  color: var(--admin-text-muted);
+}
+
+/* Detail panel */
+.admin-detail {
+  padding: var(--admin-sp-md);
+  background: var(--admin-bg);
+}
+
+.admin-detail__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--admin-sp-md);
+  margin: var(--admin-sp-md) 0 var(--admin-sp-sm);
+  flex-wrap: wrap;
+}
+
+.admin-detail__meta {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+}
+
+.admin-json {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.75rem;
+  color: var(--admin-text);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-r-sm);
+  padding: var(--admin-sp-md);
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre;
+}
+
+/* Inline create form */
+.admin-inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--admin-sp-md);
+  margin-bottom: var(--admin-sp-lg);
+}
+
+.admin-inline-form .admin-field {
+  min-width: 200px;
+}
+
 /* Desktop */
 @media (min-width: 768px) {
   .cms-layout {
