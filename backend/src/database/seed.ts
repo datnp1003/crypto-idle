@@ -2,13 +2,14 @@ import { DataSource } from 'typeorm';
 import { StaffModule } from '../game-config/entities/staff-module.entity';
 import { UpgradeModule } from '../game-config/entities/upgrade-module.entity';
 import { GameSetting } from '../game-config/entities/game-setting.entity';
+import { User } from '../users/user.entity';
 import { STAFF_SEED, UPGRADES_SEED, SETTINGS_SEED } from '../game-config/seed-data';
 
 async function seed() {
   const dataSource = new DataSource({
     type: 'better-sqlite3',
     database: 'data/crypto-idle.sqlite',
-    entities: [StaffModule, UpgradeModule, GameSetting],
+    entities: [StaffModule, UpgradeModule, GameSetting, User],
     synchronize: true,
   });
   await dataSource.initialize();
