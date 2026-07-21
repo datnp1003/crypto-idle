@@ -434,6 +434,202 @@ body {
   cursor: not-allowed;
 }
 
+/* Entity list / cards */
+.admin-entity-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-sp-lg);
+}
+
+.admin-entity-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-r-md);
+  overflow: hidden;
+}
+
+.admin-entity-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--admin-sp-md) var(--admin-sp-lg);
+  background: var(--admin-surface-2);
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-entity-card__id {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--admin-green);
+  font-family: monospace;
+}
+
+.admin-entity-card__body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--admin-sp-md);
+  padding: var(--admin-sp-lg);
+}
+
+.admin-entity-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--admin-sp-md);
+  padding: var(--admin-sp-md) var(--admin-sp-lg);
+  border-top: 1px solid var(--admin-border);
+}
+
+/* Settings list */
+.admin-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-sp-lg);
+  max-width: 480px;
+}
+
+.admin-setting-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--admin-sp-md);
+}
+
+.admin-setting-row .admin-field {
+  flex: 1;
+}
+
+/* Shared form field */
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-sp-xs);
+}
+
+.admin-field__label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--admin-text-muted);
+}
+
+.admin-field__input {
+  width: 100%;
+  padding: var(--admin-sp-sm) var(--admin-sp-md);
+  background: var(--admin-surface-2);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-r-sm);
+  color: var(--admin-text);
+  font-size: 0.8125rem;
+  font-family: var(--admin-font);
+  outline: none;
+  transition: border-color var(--admin-t-fast);
+}
+
+.admin-field__input:focus {
+  border-color: var(--admin-green);
+}
+
+.admin-field__input::placeholder {
+  color: var(--admin-text-muted);
+}
+
+/* Buttons */
+.admin-btn {
+  padding: var(--admin-sp-sm) var(--admin-sp-lg);
+  border: none;
+  border-radius: var(--admin-r-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--admin-font);
+  transition: opacity var(--admin-t-fast);
+  white-space: nowrap;
+}
+
+.admin-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-btn--primary {
+  background: var(--admin-green);
+  color: #000;
+}
+
+.admin-btn--primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Status badges */
+.admin-status {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-status--ok {
+  color: var(--admin-green);
+}
+
+.admin-status--err {
+  color: var(--admin-red);
+}
+
+/* Form error */
+.admin-form__error {
+  padding: var(--admin-sp-sm) var(--admin-sp-md);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--admin-r-sm);
+  color: var(--admin-red);
+  font-size: 0.8125rem;
+}
+
+/* Toggle switch */
+.admin-toggle {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.admin-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.admin-toggle__track {
+  display: block;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--admin-border-hi);
+  transition: background var(--admin-t-base);
+  position: relative;
+}
+
+.admin-toggle__track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--admin-text-dim);
+  transition: transform var(--admin-t-base), background var(--admin-t-base);
+}
+
+.admin-toggle input:checked + .admin-toggle__track {
+  background: var(--admin-green);
+}
+
+.admin-toggle input:checked + .admin-toggle__track::after {
+  transform: translateX(16px);
+  background: #000;
+}
+
 /* Desktop */
 @media (min-width: 768px) {
   .cms-layout {
@@ -459,6 +655,10 @@ body {
 
   .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-entity-card__body {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
