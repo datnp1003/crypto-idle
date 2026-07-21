@@ -9,12 +9,17 @@ import {
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SaveService } from './save.service';
+import { GameConfigService } from '../game-config/game-config.service';
+import { sanitizeAndValidateSave } from './save-guard';
 import { User } from '../users/user.entity';
 
 @Controller('save')
 @UseGuards(AuthGuard)
 export class SaveController {
-  constructor(private readonly saveService: SaveService) {}
+  constructor(
+    private readonly saveService: SaveService,
+    private readonly gameConfigService: GameConfigService,
+  ) {}
 
   @Get()
   async getSave(@CurrentUser() user: User) {
@@ -30,7 +35,25 @@ export class SaveController {
     if (!body || typeof body.save === 'undefined' || body.save === null) {
       throw new BadRequestException('Missing save key in body');
     }
-    const save = await this.saveService.upsert(user.id, body.save);
-    return { save: JSON.parse(save.saveJson), updatedAt: save.updatedAt };
+
+    const prev = await this.saveService.findByUserId(user.id);
+    const prevSave = prev ? JSON.parse(prev.saveJson) : null;
+    const prevUpdatedAt = prev ? prev.updatedAt : null;
+
+    const config = await this.gameConfigService.getConfig();
+    const { save } = sanitizeAndValidateSave(
+      prevSave,
+      prevUpdatedAt,
+      body.save,
+      {
+        staffDefs: config.staff,
+        upgradeDefs: config.upgrades,
+        pumpMultiplier: (config.settings as any).pumpMultiplier ?? 10,
+      },
+      Date.now(),
+    );
+
+    const saved = await this.saveService.upsert(user.id, save);
+    return { save: JSON.parse(saved.saveJson), updatedAt: saved.updatedAt };
   }
 }
