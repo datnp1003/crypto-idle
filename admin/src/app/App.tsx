@@ -1,20 +1,42 @@
-const navItems = [
-  { label: 'Dashboard', active: true },
-  { label: 'Staff' },
-  { label: 'Upgrades' },
-  { label: 'Settings' },
-  { label: 'Players' },
-  { label: 'Audit' },
-];
-
-const cards = [
-  { label: 'Backend', value: 'NestJS ready', dot: 'green' as const },
-  { label: 'CMS', value: 'React admin shell', dot: 'blue' as const },
-  { label: 'Config', value: 'Waiting for /api/config', dot: 'gold' as const },
-  { label: 'Auth', value: 'Planned', dot: 'purple' as const },
-];
+import { useEffect, useState } from 'react';
+import { getGameConfig, type GameConfigResponse } from '../api/gameConfig';
 
 export function App() {
+  const [config, setConfig] = useState<GameConfigResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    getGameConfig()
+      .then((data) => {
+        if (!cancelled) {
+          setConfig(data);
+          setLoading(false);
+        }
+      })
+      .catch((err: unknown) => {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : 'Unknown error');
+          setLoading(false);
+        }
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  const staffCount = config?.staff.length ?? 0;
+  const upgradeCount = config?.upgrades.length ?? 0;
+  const settingsCount = config?.settings ? Object.keys(config.settings).length : 0;
+  const apiStatus = error ? 'Offline' : config ? 'Connected' : 'Connecting…';
+  const apiDot = error ? 'red' : config ? 'green' : 'gold';
+
+  const cards = [
+    { label: 'Staff', value: loading ? 'Loading…' : `${staffCount} modules`, dot: 'blue' as const },
+    { label: 'Upgrades', value: loading ? 'Loading…' : `${upgradeCount} upgrades`, dot: 'gold' as const },
+    { label: 'Settings', value: loading ? 'Loading…' : `${settingsCount} settings`, dot: 'purple' as const },
+    { label: 'API', value: loading ? 'Connecting…' : `${apiStatus}${error ? ` (${error})` : ''}`, dot: apiDot as 'green' | 'red' | 'gold' },
+  ];
+
   return (
     <>
       <header className="cms-header" role="banner">
@@ -28,15 +50,14 @@ export function App() {
       <div className="cms-layout">
         <nav className="cms-sidebar" role="navigation" aria-label="Main navigation">
           <ul className="cms-nav">
-            {navItems.map((item) => (
-              <li key={item.label} className="cms-nav__item">
-                <button
-                  className={`cms-nav__btn${item.active ? ' cms-nav__btn--active' : ''}`}
-                  aria-current={item.active ? 'page' : undefined}
-                  disabled={!item.active}
-                >
-                  {item.label}
-                </button>
+            <li className="cms-nav__item">
+              <button className="cms-nav__btn cms-nav__btn--active" aria-current="page">
+                Dashboard
+              </button>
+            </li>
+            {['Staff', 'Upgrades', 'Settings', 'Players', 'Audit'].map((label) => (
+              <li key={label} className="cms-nav__item">
+                <button className="cms-nav__btn" disabled>{label}</button>
               </li>
             ))}
           </ul>
@@ -58,7 +79,12 @@ export function App() {
           </div>
 
           <p className="cms-main__hint">
-            Next: connect <code>/api/config</code>
+            {error
+              ? <><span className="cms-hint--warn">Backend offline.</span> Start NestJS on port 3025 to see live data.</>
+              : config
+                ? <>Next: auth + admin CRUD</>
+                : <>Connecting to <code>/api/config</code>…</>
+            }
           </p>
         </main>
       </div>

@@ -84,6 +84,10 @@ body {
   color: var(--admin-green);
 }
 
+.cms-hint--warn {
+  color: var(--admin-gold);
+}
+
 /* Sidebar / Nav */
 .cms-sidebar {
   width: 100%;
@@ -199,6 +203,10 @@ body {
 
 .dashboard-card__dot--purple {
   background: var(--admin-purple);
+}
+
+.dashboard-card__dot--red {
+  background: var(--admin-red);
 }
 
 /* Footer hint */
