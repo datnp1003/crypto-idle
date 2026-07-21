@@ -32,7 +32,7 @@ export function AppShell() {
             <div className="cms-user-bar">
               <span className="cms-user-bar__info">
                 <span className="cms-user-bar__email">{user.email}</span>
-                <span className="cms-user-bar__role">{user.role}</span>
+                <span className="cms-user-bar__role">Admin</span>
               </span>
               <button className="cms-user-bar__logout" onClick={handleLogout}>
                 Logout

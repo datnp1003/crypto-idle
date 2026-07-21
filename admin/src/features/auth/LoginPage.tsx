@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 
 export function LoginPage() {
-  const { login, register } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -24,23 +24,11 @@ export function LoginPage() {
     }
   }
 
-  async function handleRegister() {
-    setError(null);
-    setPending(true);
-    try {
-      await register(email, password);
-      navigate('/dashboard', { replace: true });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
-      setPending(false);
-    }
-  }
-
   return (
     <div className="login-page">
       <div className="login-card">
         <h1 className="login-card__title">Crypto Idle CMS</h1>
-        <p className="login-card__subtitle">Sign in to the admin console</p>
+        <p className="login-card__subtitle">Admin access only</p>
 
         <form className="login-form" onSubmit={handleLogin}>
           <label className="login-form__field">
@@ -73,23 +61,6 @@ export function LoginPage() {
             {pending ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
-
-        <div className="login-card__divider">
-          <span>or</span>
-        </div>
-
-        <button
-          className="login-form__register"
-          type="button"
-          disabled={pending}
-          onClick={handleRegister}
-        >
-          Create first admin
-        </button>
-
-        <p className="login-card__hint">
-          First account registered becomes admin.
-        </p>
       </div>
     </div>
   );

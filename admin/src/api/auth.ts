@@ -1,7 +1,6 @@
 export interface AuthUser {
   id: number;
   email: string;
-  role: string;
   disabled: boolean;
   createdAt: string;
   updatedAt: string;
@@ -34,17 +33,13 @@ function postJson<T>(path: string, body?: unknown): Promise<T> {
 }
 
 export async function login(email: string, password: string): Promise<AuthResponse> {
-  return postJson<AuthResponse>('/api/auth/login', { email, password });
-}
-
-export async function register(email: string, password: string): Promise<AuthResponse> {
-  return postJson<AuthResponse>('/api/auth/register', { email, password });
+  return postJson<AuthResponse>('/api/admin/auth/login', { email, password });
 }
 
 export async function logout(): Promise<{ ok: true }> {
-  return postJson<{ ok: true }>('/api/auth/logout');
+  return postJson<{ ok: true }>('/api/admin/auth/logout');
 }
 
 export async function getMe(): Promise<AuthUser> {
-  return apiRequest<AuthUser>('/api/me');
+  return apiRequest<AuthUser>('/api/admin/me');
 }
