@@ -57,7 +57,7 @@ export function DashboardPage() {
         {error
           ? <><span className="cms-hint--warn">Backend offline.</span> Start NestJS on port 3025 to see live data.</>
           : config
-            ? <>Next: auth + admin CRUD</>
+            ? <>Next: admin CRUD</>
             : <>Connecting to <code>/api/config</code>…</>
         }
       </p>

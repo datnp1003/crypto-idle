@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../features/auth/AuthProvider';
 
 const NAV_ITEMS = [
   { to: '/dashboard', label: 'Dashboard' },
@@ -10,6 +11,14 @@ const NAV_ITEMS = [
 ];
 
 export function AppShell() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await logout();
+    navigate('/login', { replace: true });
+  }
+
   return (
     <>
       <header className="cms-header" role="banner">
@@ -17,7 +26,21 @@ export function AppShell() {
           <h1 className="cms-header__title">Crypto Idle CMS</h1>
           <span className="cms-header__subtitle">Game management console</span>
         </div>
-        <span className="cms-badge">LOCAL</span>
+
+        <div className="cms-header__right">
+          {user && (
+            <div className="cms-user-bar">
+              <span className="cms-user-bar__info">
+                <span className="cms-user-bar__email">{user.email}</span>
+                <span className="cms-user-bar__role">{user.role}</span>
+              </span>
+              <button className="cms-user-bar__logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          )}
+          <span className="cms-badge">LOCAL</span>
+        </div>
       </header>
 
       <div className="cms-layout">
