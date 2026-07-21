@@ -5,6 +5,7 @@ import { HealthController } from './health.controller';
 import { DatabaseModule } from './database/database.module';
 import { GameConfigModule } from './game-config/game-config.module';
 import { AuthModule } from './auth/auth.module';
+import { SaveModule } from './save/save.module';
 
 const frontendRoot = join(process.cwd(), '..');
 
@@ -17,6 +18,7 @@ const frontendRoot = join(process.cwd(), '..');
     DatabaseModule,
     GameConfigModule,
     AuthModule,
+    SaveModule,
   ],
   controllers: [HealthController],
 })

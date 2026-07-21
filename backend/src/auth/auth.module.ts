@@ -18,5 +18,6 @@ const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-me';
   ],
   providers: [AuthService, AuthGuard],
   controllers: [AuthController, MeController],
+  exports: [AuthGuard],
 })
 export class AuthModule {}
