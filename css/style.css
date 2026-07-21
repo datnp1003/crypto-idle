@@ -837,6 +837,105 @@ body {
   box-shadow: none;
 }
 
+/* ── Cloud save panel ─────────────────────────────────────────────── */
+.cloud-save-section {
+  border-top: 1px solid var(--clr-border);
+  padding-top: var(--sp-lg);
+}
+
+.cloud-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+
+.cloud-input {
+  width: 100%;
+  padding: var(--sp-sm) var(--sp-md);
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  color: var(--clr-text);
+  font-family: var(--font);
+  font-size: 0.78rem;
+  outline: none;
+  transition: border-color var(--t-fast);
+}
+
+.cloud-input:focus {
+  border-color: var(--clr-green-dim);
+}
+
+.cloud-input::placeholder {
+  color: var(--clr-text-muted);
+}
+
+.cloud-btn-row {
+  display: flex;
+  gap: var(--sp-sm);
+}
+
+.cloud-btn {
+  flex: 1;
+  padding: var(--sp-sm) var(--sp-md);
+  min-height: 34px;
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity var(--t-fast);
+}
+
+.cloud-btn:hover { opacity: 0.88; }
+
+.cloud-login {
+  background: linear-gradient(135deg, var(--clr-green-dim), var(--clr-green));
+  color: #000;
+}
+
+.cloud-register {
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border-hi);
+  color: var(--clr-text-dim);
+}
+
+.cloud-register:hover {
+  border-color: var(--clr-green-dim);
+  color: var(--clr-green);
+}
+
+.cloud-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-sm);
+}
+
+.cloud-email {
+  font-size: 0.78rem;
+  color: var(--clr-text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cloud-logout {
+  flex-shrink: 0;
+  padding: var(--sp-xs) var(--sp-md);
+  min-height: 28px;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border-hi);
+  color: var(--clr-text-muted);
+  font-size: 0.68rem;
+}
+
+.cloud-logout:hover {
+  border-color: var(--clr-red-dim);
+  color: var(--clr-red);
+}
+
 /* ── Click feedback (floating +$ text) ─────────────────────────────── */
 .click-float {
   position: fixed;

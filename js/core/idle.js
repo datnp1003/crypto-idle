@@ -1,6 +1,7 @@
 import { gameState } from './game-state.js';
 import { STAFF } from '../data/game-config.js';
 import { profitPerSecond } from './economy.js';
+import { isLoggedIn, pushSave } from './cloud-save.js';
 
 const PUMP_CHANCE_PER_TICK = 0.00002;
 
@@ -41,6 +42,9 @@ class Idle {
   save() {
     gameState.state.lastOnlineTime = Date.now();
     gameState.save();
+    if (isLoggedIn()) {
+      pushSave(gameState.state);
+    }
   }
 
   stop() {
