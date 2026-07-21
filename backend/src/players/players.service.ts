@@ -27,6 +27,17 @@ export class PlayersService {
     return this.playerRepo.save(player);
   }
 
+  async setDisabled(id: number, disabled: boolean): Promise<Player | null> {
+    const player = await this.findById(id);
+    if (!player) return null;
+    player.disabled = disabled;
+    return this.playerRepo.save(player);
+  }
+
+  async findAll(): Promise<Player[]> {
+    return this.playerRepo.find({ order: { id: 'ASC' } });
+  }
+
   sanitize(player: Player) {
     const { passwordHash, ...rest } = player as any;
     return rest;

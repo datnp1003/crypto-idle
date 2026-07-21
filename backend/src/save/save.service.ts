@@ -24,4 +24,8 @@ export class SaveService {
     const record = this.saveRepo.create({ userId, saveJson });
     return this.saveRepo.save(record);
   }
+
+  async removeByUserId(userId: number): Promise<void> {
+    await this.saveRepo.delete({ userId });
+  }
 }

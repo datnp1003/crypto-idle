@@ -11,5 +11,6 @@ import { GameConfigModule } from '../game-config/game-config.module';
   imports: [TypeOrmModule.forFeature([PlayerSave]), PlayersModule, PlayerAuthModule, GameConfigModule],
   providers: [SaveService],
   controllers: [SaveController],
+  exports: [SaveService],
 })
 export class SaveModule {}

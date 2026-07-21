@@ -7,6 +7,7 @@ import { GameConfigModule } from './game-config/game-config.module';
 import { PlayerAuthModule } from './auth/auth.module';
 import { AdminAuthModule } from './auth/admin-auth.module';
 import { SaveModule } from './save/save.module';
+import { AdminManagementModule } from './admin-users/admin-management.module';
 
 const frontendRoot = join(process.cwd(), '..');
 
@@ -21,6 +22,7 @@ const frontendRoot = join(process.cwd(), '..');
     PlayerAuthModule,
     AdminAuthModule,
     SaveModule,
+    AdminManagementModule,
   ],
   controllers: [HealthController],
 })
