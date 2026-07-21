@@ -6,14 +6,12 @@ import { GameSetting } from './entities/game-setting.entity';
 import { GameConfigService } from './game-config.service';
 import { GameConfigController } from './game-config.controller';
 import { AdminGameConfigController } from './admin-game-config.controller';
-import { AuthModule } from '../auth/auth.module';
-import { UsersModule } from '../users/users.module';
+import { AdminAuthModule } from '../auth/admin-auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([StaffModule, UpgradeModule, GameSetting]),
-    AuthModule,
-    UsersModule,
+    AdminAuthModule,
   ],
   controllers: [GameConfigController, AdminGameConfigController],
   providers: [GameConfigService],

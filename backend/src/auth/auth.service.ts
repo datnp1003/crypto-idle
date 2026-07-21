@@ -4,37 +4,24 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { randomBytes, scryptSync, timingSafeEqual } from 'crypto';
-import { UsersService } from '../users/users.service';
-import { COOKIE_NAME } from './auth.guard';
 import { Response } from 'express';
+import { PlayersService } from '../players/players.service';
+import { PLAYER_COOKIE_NAME } from './auth.guard';
+import { hashPassword, verifyPassword } from './password.util';
 
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 @Injectable()
-export class AuthService {
+export class PlayerAuthService {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly playersService: PlayersService,
     private readonly jwtService: JwtService,
   ) {}
 
-  private hashPassword(password: string): string {
-    const salt = randomBytes(16).toString('hex');
-    const hash = scryptSync(password, salt, 64).toString('hex');
-    return `${salt}:${hash}`;
-  }
-
-  private verifyPassword(password: string, stored: string): boolean {
-    const [salt, hashHex] = stored.split(':');
-    const hash = scryptSync(password, salt, 64);
-    const storedHash = Buffer.from(hashHex, 'hex');
-    return timingSafeEqual(hash, storedHash);
-  }
-
-  private setAuthCookie(res: Response, userId: number) {
-    const payload = { sub: userId };
+  private setPlayerCookie(res: Response, playerId: number) {
+    const payload = { sub: playerId, realm: 'player' };
     const token = this.jwtService.sign(payload);
-    res.cookie(COOKIE_NAME, token, {
+    res.cookie(PLAYER_COOKIE_NAME, token, {
       httpOnly: true,
       sameSite: 'lax',
       secure: false,
@@ -43,57 +30,34 @@ export class AuthService {
     return token;
   }
 
-  async register(email: string, password: string) {
-    const normalizedEmail = email.toLowerCase();
-    const existing = await this.usersService.findByEmail(normalizedEmail);
-    if (existing) {
-      throw new ConflictException('Email already registered');
-    }
-
-    const userCount = await this.usersService.count();
-    const role = userCount === 0 ? 'admin' : 'player';
-
-    const user = await this.usersService.create({
-      email: normalizedEmail,
-      passwordHash: this.hashPassword(password),
-      role,
-    });
-
-    return { user: this.usersService.sanitize(user) };
-  }
-
   async registerAndLogin(email: string, password: string, res: Response) {
     const normalizedEmail = email.toLowerCase();
-    const existing = await this.usersService.findByEmail(normalizedEmail);
+    const existing = await this.playersService.findByEmail(normalizedEmail);
     if (existing) {
       throw new ConflictException('Email already registered');
     }
 
-    const userCount = await this.usersService.count();
-    const role = userCount === 0 ? 'admin' : 'player';
-
-    const user = await this.usersService.create({
+    const player = await this.playersService.create({
       email: normalizedEmail,
-      passwordHash: this.hashPassword(password),
-      role,
+      passwordHash: hashPassword(password),
     });
 
-    this.setAuthCookie(res, user.id);
-    return { user: this.usersService.sanitize(user) };
+    this.setPlayerCookie(res, player.id);
+    return { user: this.playersService.sanitize(player) };
   }
 
   async login(email: string, password: string, res: Response) {
     const normalizedEmail = email.toLowerCase();
-    const user = await this.usersService.findByEmail(normalizedEmail);
-    if (!user || !this.verifyPassword(password, user.passwordHash)) {
+    const player = await this.playersService.findByEmail(normalizedEmail);
+    if (!player || !verifyPassword(password, player.passwordHash)) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    this.setAuthCookie(res, user.id);
-    return { user: this.usersService.sanitize(user) };
+    this.setPlayerCookie(res, player.id);
+    return { user: this.playersService.sanitize(player) };
   }
 
   logout(res: Response) {
-    res.clearCookie(COOKIE_NAME);
+    res.clearCookie(PLAYER_COOKIE_NAME);
   }
 }

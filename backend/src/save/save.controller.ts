@@ -6,15 +6,15 @@ import {
   UseGuards,
   BadRequestException,
 } from '@nestjs/common';
-import { AuthGuard } from '../auth/auth.guard';
+import { PlayerAuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SaveService } from './save.service';
 import { GameConfigService } from '../game-config/game-config.service';
 import { sanitizeAndValidateSave } from './save-guard';
-import { User } from '../users/user.entity';
+import { Player } from '../players/player.entity';
 
 @Controller('save')
-@UseGuards(AuthGuard)
+@UseGuards(PlayerAuthGuard)
 export class SaveController {
   constructor(
     private readonly saveService: SaveService,
@@ -22,8 +22,8 @@ export class SaveController {
   ) {}
 
   @Get()
-  async getSave(@CurrentUser() user: User) {
-    const save = await this.saveService.findByUserId(user.id);
+  async getSave(@CurrentUser() player: Player) {
+    const save = await this.saveService.findByUserId(player.id);
     if (!save) {
       return { save: null };
     }
@@ -31,12 +31,12 @@ export class SaveController {
   }
 
   @Put()
-  async putSave(@CurrentUser() user: User, @Body() body: any) {
+  async putSave(@CurrentUser() player: Player, @Body() body: any) {
     if (!body || typeof body.save === 'undefined' || body.save === null) {
       throw new BadRequestException('Missing save key in body');
     }
 
-    const prev = await this.saveService.findByUserId(user.id);
+    const prev = await this.saveService.findByUserId(player.id);
     const prevSave = prev ? JSON.parse(prev.saveJson) : null;
     const prevUpdatedAt = prev ? prev.updatedAt : null;
 
@@ -53,7 +53,7 @@ export class SaveController {
       Date.now(),
     );
 
-    const saved = await this.saveService.upsert(user.id, save);
+    const saved = await this.saveService.upsert(player.id, save);
     return { save: JSON.parse(saved.saveJson), updatedAt: saved.updatedAt };
   }
 }

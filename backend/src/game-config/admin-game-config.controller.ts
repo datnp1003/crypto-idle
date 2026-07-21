@@ -8,14 +8,14 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AdminGuard } from '../auth/admin.guard';
+import { AdminAuthGuard } from '../auth/admin.guard';
 import { GameConfigService } from './game-config.service';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 import { UpdateUpgradeDto } from './dto/update-upgrade.dto';
 import { UpdateSettingDto } from './dto/update-setting.dto';
 
 @Controller('admin')
-@UseGuards(AdminGuard)
+@UseGuards(AdminAuthGuard)
 export class AdminGameConfigController {
   constructor(private readonly gameConfigService: GameConfigService) {}
 

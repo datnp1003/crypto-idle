@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
-export class User {
+@Entity('admin_users')
+export class AdminUser {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,9 +16,6 @@ export class User {
 
   @Column()
   passwordHash: string;
-
-  @Column({ default: 'player' })
-  role: string;
 
   @Column({ default: false })
   disabled: boolean;

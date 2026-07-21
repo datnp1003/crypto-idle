@@ -6,31 +6,34 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { UsersService } from '../users/users.service';
+import { PlayersService } from '../players/players.service';
 
-export const COOKIE_NAME = 'crypto_idle_auth';
+export const PLAYER_COOKIE_NAME = 'crypto_idle_player';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class PlayerAuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly usersService: UsersService,
+    private readonly playersService: PlayersService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
-    const token = request.cookies?.[COOKIE_NAME];
+    const token = request.cookies?.[PLAYER_COOKIE_NAME];
     if (!token) {
       throw new UnauthorizedException();
     }
 
     try {
       const payload = await this.jwtService.verifyAsync(token);
-      const user = await this.usersService.findById(payload.sub);
-      if (!user || user.disabled) {
+      if (payload.realm !== 'player') {
         throw new UnauthorizedException();
       }
-      (request as any).user = user;
+      const player = await this.playersService.findById(payload.sub);
+      if (!player || player.disabled) {
+        throw new UnauthorizedException();
+      }
+      (request as any).user = player;
       return true;
     } catch {
       throw new UnauthorizedException();
