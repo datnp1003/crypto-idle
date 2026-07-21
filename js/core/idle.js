@@ -1,5 +1,5 @@
 import { gameState } from './game-state.js';
-import { STAFF } from '../data/crypto-staff.js';
+import { STAFF } from '../data/game-config.js';
 import { profitPerSecond } from './economy.js';
 
 const PUMP_CHANCE_PER_TICK = 0.00002;

@@ -1,5 +1,5 @@
-import { STAFF, UPGRADES } from '../data/crypto-staff.js';
-import { canPrestige, prestigeGain, staffCost, upgradeCost, maxAffordableLevels, maxAffordableStaff, PUMP_DURATION_MS } from './economy.js';
+import { STAFF, UPGRADES, SETTINGS } from '../data/game-config.js';
+import { canPrestige, prestigeGain, staffCost, upgradeCost, maxAffordableLevels, maxAffordableStaff } from './economy.js';
 
 const SAVE_KEY = 'crypto_idle_save_v1';
 
@@ -150,7 +150,7 @@ class GameState {
   }
 
   triggerPump(now = Date.now()) {
-    this.state.eventUntil = now + PUMP_DURATION_MS;
+    this.state.eventUntil = now + SETTINGS.pumpDurationMs;
     this.save();
     this.notify();
   }

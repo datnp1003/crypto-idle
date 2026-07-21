@@ -8,7 +8,7 @@
 
 import { gameState }   from '../core/game-state.js';
 import { idle }        from '../core/idle.js';
-import { STAFF, UPGRADES } from '../data/crypto-staff.js';
+import { STAFF, UPGRADES } from '../data/game-config.js';
 import {
   clickValue,
   staffCost,
